@@ -118,6 +118,52 @@ import CtaSplit from '../../components/ui/CtaSplit.astro';
   note="Quota di attivazione una tantum 60€. Al termine della durata minima l'abbonamento si rinnova mensilmente allo stesso prezzo ed è disdicibile dall'Area Riservata. Sospensioni mensili illimitate al costo di 15€ per mese solare."
 />
 
+<PricingGroup
+  id="formula-8"
+  title="Formula 8"
+  subtitle="Small Group in Sala Pesi, Corsi Fitness Rebalance ed Energy"
+  image="/images/uploads/2024/11/Sala-Pesi-2.jpeg"
+  features={[
+    'Singola prenotazione per categoria di attività',
+    'Accesso senza limiti orari',
+    'Lezione Small Group da 1 a 8 persone in Sala Pesi',
+    'Fino a 8 prenotazioni Small Group Formula 8',
+    'Lezioni aggiuntive di Formula 8 a 15€ l\'una',
+    'Posto garantito solo con prenotazione No Stress',
+    'Sala Pesi',
+    'Corsi Fitness Rebalance',
+    'Corsi Fitness Energy',
+    'In omaggio abbonamento Corsi + Sala',
+    'No Reformer',
+  ]}
+  plans={[
+    { duration: 'Mensile Flex', price: '99', href: 'https://passion.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=103' },
+  ]}
+  note="Quota di attivazione una tantum 60€. Nessuna durata minima: abbonamento mensile con rinnovo automatico, disdicibile dall'Area Riservata con 10 giorni di preavviso."
+/>
+
+<PricingGroup
+  id="pt-elite"
+  title="PT Elite"
+  subtitle="Sala Pesi, Corsi Fitness e lezioni con Personal Trainer"
+  image="/images/nuove/personaltrainer.webp"
+  features={[
+    'Accesso senza limiti orari',
+    'Sala Pesi',
+    'Corsi Fitness Rebalance',
+    'Corsi Fitness Energy',
+    'In omaggio abbonamento Corsi + Sala',
+    'Addebito ricorrente su carta di credito o C/C',
+    'No Reformer',
+  ]}
+  plans={[
+    { duration: '4 Lezioni PT', price: '160', href: 'https://passion.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=104' },
+    { duration: '8 Lezioni PT', price: '240', href: 'https://passion.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=106' },
+    { duration: '12 Lezioni PT', price: '320', href: 'https://passion.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&PaymentPlanId=105' },
+  ]}
+  note="Quota di attivazione una tantum 60€. Nessuna durata minima: abbonamento mensile con rinnovo automatico, disdicibile dall'Area Riservata con 10 giorni di preavviso."
+/>
+
 <Collapsible id="under-25" title="Abbonamenti Under 25" variant="accent">
   <PricingGroup
     title="Under 25"
@@ -149,8 +195,7 @@ import CtaSplit from '../../components/ui/CtaSplit.astro';
     priceSuffix=""
     buttonLabel="Acquista"
     plans={[
-      { duration: 'Sala Pesi', price: '15', href: 'https://passion.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&productId=23' },
-      { duration: 'Corso Fitness', price: '15', href: 'https://passion.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&productId=18' },
+      { duration: 'Corso Fitness', price: '20', href: 'https://passion.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&productId=18' },
       { duration: 'Reformer (5 accessi)', price: '99', href: 'https://passion.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&productId=145' },
     ]}
     note="Per accedere dovrai acquistare il Badge di Accesso al costo di 5€: non è richiesta la quota di attivazione."
@@ -164,7 +209,7 @@ import CtaSplit from '../../components/ui/CtaSplit.astro';
     priceSuffix=""
     buttonLabel="Acquista"
     plans={[
-      { duration: "Sedute con personal trainer da 60'", price: '500', href: 'https://passion.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&productId=95' },
+      { duration: "Sedute con personal trainer da 60'", price: '500', href: 'https://passion.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&productId=101' },
       { duration: "Sedute con personal trainer da 40'", price: '400', href: 'https://passion.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&productId=98' },
       { duration: "Sedute con personal trainer da 30'", price: '300', href: 'https://passion.perfectgym.com/ClientPortal2/Registration/Start?clubID=1&productId=95' },
     ]}
