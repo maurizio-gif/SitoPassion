@@ -1,8 +1,14 @@
 ---
 // Riga full-bleed con immagine su un lato e testo sull'altro. L'alternanza
-// destra/sinistra e' automatica (:nth-child) come nella sezione "programmi"
+// destra/sinistra e' automatica (:nth-of-type) come nella sezione "programmi"
 // della home: righe dispari immagine a sinistra, righe pari immagine a destra.
 // Va usata dentro <ContentRows>.
+//
+// nth-of-type e non nth-child: lo script differito piu' sotto viene
+// deduplicato da Astro e finisce come fratello diretto delle <article> dentro
+// <ContentRows> (non dentro questo file), sfasando di uno il conteggio dei
+// figli. nth-of-type conta solo tra elementi dello stesso tag (<article>),
+// quindi resta corretto anche con quello script in mezzo.
 //
 //   <ContentRows>
 //     <ContentRow title="Titolo" image="/images/..." alt="...">
@@ -68,7 +74,7 @@ const poster = video
        entrano da destra, righe pari (testo a sinistra) da sinistra. */
     --enter-from: 3.5rem;
   }
-  .content-row:nth-child(even) {
+  .content-row:nth-of-type(even) {
     --enter-from: -3.5rem;
   }
   .content-row__media {
@@ -130,7 +136,7 @@ const poster = video
     width: min(7rem, 14%);
     pointer-events: none;
   }
-  .content-row:nth-child(odd) .content-row__copy::before {
+  .content-row:nth-of-type(odd) .content-row__copy::before {
     right: 100%;
     background: linear-gradient(
       to left,
@@ -139,7 +145,7 @@ const poster = video
       var(--bg-light-soft-transparent) 100%
     );
   }
-  .content-row:nth-child(even) .content-row__copy::before {
+  .content-row:nth-of-type(even) .content-row__copy::before {
     left: 100%;
     background: linear-gradient(
       to right,
@@ -186,7 +192,7 @@ const poster = video
   /* Righe pari: immagine a destra. Va spostata anche la traccia, non solo
      l'ordine visivo, altrimenti su griglie asimmetriche l'immagine
      resterebbe nella colonna sbagliata. */
-  .content-row:nth-child(even) .content-row__media {
+  .content-row:nth-of-type(even) .content-row__media {
     order: 2;
   }
 
@@ -216,7 +222,7 @@ const poster = video
   @media (max-width: 860px),
     (min-width: 900px) and (min-height: 1200px) and (max-aspect-ratio: 7/10) {
     .content-row,
-    .content-row:nth-child(even) {
+    .content-row:nth-of-type(even) {
       grid-template-columns: 1fr;
       /* Su mobile le righe sono impilate, non affiancate: l'altezza fissa
          del desktop (serve solo a far coincidere gli angoli in orizzontale)
@@ -231,7 +237,7 @@ const poster = video
       display: contents;
     }
     .content-row__copy h2,
-    .content-row:nth-child(even) .content-row__copy h2 {
+    .content-row:nth-of-type(even) .content-row__copy h2 {
       order: 1;
       margin: 0;
       background: var(--accent);
@@ -267,14 +273,14 @@ const poster = video
       content: none;
     }
     .content-row__media,
-    .content-row:nth-child(even) .content-row__media {
+    .content-row:nth-of-type(even) .content-row__media {
       order: 2;
       aspect-ratio: 4 / 3;
     }
     /* Nessun bordo nemmeno qui: il passaggio col media sopra e' la
        sfumatura che scende dal titolo. */
     .content-row__text,
-    .content-row:nth-child(even) .content-row__text {
+    .content-row:nth-of-type(even) .content-row__text {
       order: 3;
       background: var(--bg-light-soft);
       padding: var(--space-md) var(--container-gutter);
