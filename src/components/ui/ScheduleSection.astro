@@ -248,9 +248,13 @@ const { title, text, days, id, tone = 'plain' } = Astro.props;
   }
 
   /* --- Mobile: un giorno per volta --- */
-  /* + totem: vedi «Il totem verticale del club» in styles/global.css */
-  @media (max-width: 860px),
-    (min-width: 900px) and (min-height: 1200px) and (max-aspect-ratio: 7/10) {
+  /* Il totem NON eredita questa vista (eccezione alla regola generale, vedi
+     «Il totem verticale del club» in global.css): a differenza di due colonne
+     di prosa, una griglia di orari con celle strette regge bene anche larga,
+     e il totem ha lo spazio per mostrarla come il desktop - un giorno alla
+     volta sprecherebbe un intero schermo di reception per una sola colonna.
+     Vedi il blocco dedicato piu' sotto per gli adattamenti di dimensione. */
+  @media (max-width: 860px) {
     .schedule {
       /* Leggermente piu' compatto tra una categoria e l'altra. */
       padding-block: 2.5rem;

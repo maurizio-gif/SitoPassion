@@ -70,6 +70,16 @@
 
 html {
   color-scheme: light;
+  /* Rete di sicurezza per le fasce full-bleed che uscono dal container con
+     `width: 100vw` (es. StatsBand): su Windows/Chrome, se la pagina ha una
+     scrollbar verticale visibile, `100vw` include la sua larghezza mentre il
+     contenuto reale no - la pagina risulta piu' larga del viewport di quei
+     pochi pixel e diventa scorribile in orizzontale (bordo bianco a destra,
+     tutta la pagina "scivola" a sinistra). Nessun elemento del sito ha
+     bisogno di scorrimento orizzontale, quindi tagliarlo qui non nasconde
+     contenuto, solo il difetto. Nessun position:sticky nel sito: sicuro
+     anche per quello (overflow-x su un antenato lo romperebbe). */
+  overflow-x: hidden;
 }
 
 body {
