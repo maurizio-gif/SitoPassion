@@ -46,6 +46,7 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "Reform Plus", href: "/orari-corsi/#studio-reform-plus" },
       { label: "Corsi Energy", href: "/orari-corsi/#corsi-energy" },
       { label: "Corsi Rebalance", href: "/orari-corsi/#corsi-rebalance" },
+      { label: "Formula 8", href: "/orari-corsi/#formula-8" },
     ],
   },
   {
@@ -57,6 +58,8 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "Open", href: "/abbonamenti/#open" },
       { label: "Sala Pesi + Corsi", href: "/abbonamenti/#sala-pesi-corsi-fitness" },
       { label: "Sala Pesi", href: "/abbonamenti/#sala-pesi" },
+      { label: "Formula 8", href: "/abbonamenti/#formula-8" },
+      { label: "PT Elite", href: "/abbonamenti/#pt-elite" },
       { label: "Under 25", href: "/abbonamenti/#under-25" },
     ],
   },
