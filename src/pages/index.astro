@@ -1,13 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/ui/Hero.astro';
-import Section from '../components/ui/Section.astro';
 import Button from '../components/ui/Button.astro';
 import CtaSplit from '../components/ui/CtaSplit.astro';
 import FeatureShowcase from '../components/ui/FeatureShowcase.astro';
 import HighlightCards from '../components/ui/HighlightCards.astro';
+import StatsBand from '../components/ui/StatsBand.astro';
 import ContentRows from '../components/ui/ContentRows.astro';
 import ContentRow from '../components/ui/ContentRow.astro';
+
+const STATS = [
+  { num: '30+', label: 'Anni nel settore' },
+  { num: '2000', label: 'm² dedicati al fitness' },
+  { num: '1000', label: 'mq di sala pesi' },
+  { num: '2+2', label: 'Sale fitness e studi reformer' },
+];
 
 const PROVA_URL =
   'https://automazione.n8ndevelop.it/form/8ce36c5e-0cc4-4813-9a0f-2da2a7605fb0?source=SitoWeb&medium=Btn_Home';
@@ -70,39 +77,7 @@ const QUICKLINKS = [
 
   <HighlightCards items={QUICKLINKS} />
 
-  <Section tone="dark">
-    <div class="stats-band">
-      <div class="stats-logo-slot">
-        <img
-          class="stats-logo"
-          src="/images/logo-passionfitness.png"
-          alt="Passion Fitness Club"
-          width="402"
-          height="174"
-        />
-      </div>
-      <div class="stats-remainder">
-        <div class="stats">
-          <div class="stat">
-            <span class="stat__num">30+</span>
-            <span class="stat__label">Anni nel settore</span>
-          </div>
-          <div class="stat">
-            <span class="stat__num">2000</span>
-            <span class="stat__label">m² dedicati al fitness</span>
-          </div>
-          <div class="stat">
-            <span class="stat__num">1000</span>
-            <span class="stat__label">mq di sala pesi</span>
-          </div>
-          <div class="stat">
-            <span class="stat__num">2+2</span>
-            <span class="stat__label">Sale fitness e studi reformer</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </Section>
+  <StatsBand stats={STATS} />
 
   <ContentRows>
       <ContentRow
@@ -196,98 +171,8 @@ const QUICKLINKS = [
      media e testo, CTA come solo testo) vivono in ContentRow/ContentRows:
      stesso risultato su tutte le pagine, senza CSS di pagina. */
 
-  /* A piena larghezza ed esce dal .container di Section: cosi' la colonna
-     del logo puo' misurare esattamente un terzo del viewport e cadere sotto
-     il primo box di HighlightCards sopra (anch'esso a piena larghezza, 3
-     colonne uguali), invece di restare ancorata al padding del container. */
-  .stats-band {
-    display: flex;
-    align-items: center;
-    width: 100vw;
-    margin-inline: calc(50% - 50vw);
-  }
-  .stats-logo-slot {
-    flex: 0 0 33.3333vw;
-    display: flex;
-    justify-content: center;
-  }
-  .stats-logo {
-    height: 12rem;
-    width: auto;
-  }
-  /* Occupa tutto lo spazio che resta dopo il logo, ma non deve stirare la
-     griglia dei numeri fino in fondo: su un monitor largo lascerebbe un
-     vuoto enorme fra le due colonne. Qui la centra invece come blocco solo,
-     lasciandole la sua larghezza naturale (contenuto). */
-  .stats-remainder {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    padding-right: var(--container-gutter);
-  }
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-md) var(--space-xl);
-  }
-  /* + totem: vedi «Il totem verticale del club» in styles/global.css */
-  @media (max-width: 860px),
-    (min-width: 900px) and (min-height: 1200px) and (max-aspect-ratio: 7/10) {
-    .stats-band {
-      width: auto;
-      margin-inline: 0;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-md);
-    }
-    .stats-logo-slot {
-      flex: none;
-      width: 100%;
-    }
-    .stats-logo {
-      height: 4.5rem;
-    }
-    .stats-remainder {
-      width: 100%;
-      padding-right: 0;
-    }
-    .stats {
-      gap: var(--space-md);
-    }
-  }
-  .stat {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3xs);
-  }
-  .stat__num {
-    font-family: var(--font-display);
-    /* Rosso del logo (#ff004d), non il rosso standard del sito: qui il logo
-       e' affiancato ai numeri e i due rossi devono coincidere esattamente. */
-    color: #ff004d;
-    font-size: clamp(2.2rem, 4vw, 3rem);
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
-  }
-  .stat__label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    opacity: 0.9;
-  }
-
-  /* + totem: vedi «Il totem verticale del club» in styles/global.css */
-  @media (max-width: 860px),
-    (min-width: 900px) and (min-height: 1200px) and (max-aspect-ratio: 7/10) {
-    .stat {
-      align-items: center;
-      text-align: center;
-    }
-    .stat__num {
-      font-size: 3.2rem;
-    }
-  }
+  /* La fascia logo + numeri (stats-band) vive in StatsBand.astro: stesso
+     risultato ovunque venga riusata, senza CSS di pagina. */
 </style>
 
 <style>

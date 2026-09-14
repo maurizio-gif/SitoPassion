@@ -62,6 +62,17 @@ const { title, open = false, id, variant = 'default' } = Astro.props;
   .collapsible:has(+ .collapsible) {
     margin-bottom: 0;
   }
+  /* Chiude il gruppo nero avviato da un SectionIntro scuro (es. "Altri
+     servizi" + Accessi e pacchetti + Personal Training) con lo stesso respiro
+     usato in apertura (il padding-block di .section-intro--dark): senza
+     questo, l'ultimo Collapsible della serie si interrompe di colpo appena
+     finisce la barra, mentre all'inizio il nero respira per un bel po' prima
+     del titolo. Si applica solo all'ultimo della serie (nessun altro
+     Collapsible subito dopo) e solo se non e' seguito da un'altra fascia
+     nera (altro SectionIntro scuro), che continuerebbe comunque il nero. */
+  :global(.collapsible):not(:has(+ .collapsible)):not(:has(+ .section-intro--dark)) {
+    padding-bottom: var(--space-xl);
+  }
   /* Angoli squadrati e fascia a tutta larghezza: chiusa si legge come le
      altre bande nere del sito (fascia Blog del menu, barra dei giorni). */
   .collapsible__bar {

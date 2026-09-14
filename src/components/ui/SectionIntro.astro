@@ -9,17 +9,23 @@
 //     title="Abbonamenti e lezioni"
 //     text="Paragrafo introduttivo. Accetta <strong> per il grassetto rosso."
 //     variant="dark"                  (opzionale: sfondo nero invece che chiaro)
+//     variant="accent"                (opzionale: sfondo rosso invece che chiaro)
 //   />
 interface Props {
   title: string;
   text?: string;
-  variant?: 'default' | 'dark';
+  variant?: 'default' | 'dark' | 'accent';
 }
 
 const { title, text, variant = 'default' } = Astro.props;
 ---
 
-<section class:list={['section-intro', { 'section-intro--dark': variant === 'dark' }]}>
+<section
+  class:list={[
+    'section-intro',
+    { 'section-intro--dark': variant === 'dark', 'section-intro--accent': variant === 'accent' },
+  ]}
+>
   <div class="container">
     <h2 class="section-intro__title">{title}</h2>
     {text && <p class="section-intro__text" set:html={text} />}
@@ -48,12 +54,21 @@ const { title, text, variant = 'default' } = Astro.props;
      Abbonamenti), cosi' la pagina non torna al chiaro solo per il titolo. */
   .section-intro--dark {
     background: var(--color-black);
+    /* Simmetrico sopra/sotto: a differenza della variante chiara (che stacca
+       solo dall'alto, perche' sotto segue subito il contenuto della stessa
+       sezione), qui il riquadro nero e' un blocco a se' e deve respirare
+       uguale su entrambi i lati. */
+    padding-block: var(--space-xl);
   }
   .section-intro--dark .section-intro__title {
     color: var(--color-white);
   }
   .section-intro--dark .section-intro__text {
-    color: var(--text-on-dark-muted);
+    /* Bianco pieno, non il grigio attenuato usato altrove sul sito: qui il
+       paragrafo e' l'unico testo del riquadro (a differenza di footer/nav
+       dove il grigio distingue il testo secondario da altro testo bianco
+       vicino), quindi il grigio si legge solo come scritta spenta. */
+    color: var(--color-white);
   }
   /* Nessuno spazio chiaro tra la variante scura e i Collapsible vicini (es.
      "Altri servizi" tra Under 25 e Accessi e pacchetti): senza queste due
@@ -66,11 +81,32 @@ const { title, text, variant = 'default' } = Astro.props;
     margin-top: 0;
   }
 
+  /* Variante rossa: stessa simmetria della scura, ma per staccare
+     cromaticamente da una fascia nera che la precede (es. StatsBand prima di
+     "Abbonamenti e lezioni") invece di continuare nello stesso nero. */
+  .section-intro--accent {
+    background: var(--color-red);
+    padding-block: var(--space-xl);
+  }
+  .section-intro--accent .section-intro__title,
+  .section-intro--accent .section-intro__text {
+    color: var(--color-white);
+  }
+  .section-intro--accent .section-intro__text :global(strong) {
+    /* Il rosso del testo forte sparirebbe su sfondo rosso: qui il risalto
+       lo da' il nero invece del colore d'accento. */
+    color: var(--color-black);
+  }
+
   /* + totem: vedi «Il totem verticale del club» in styles/global.css */
   @media (max-width: 860px),
     (min-width: 900px) and (min-height: 1200px) and (max-aspect-ratio: 7/10) {
     .section-intro {
       padding-block: var(--space-md) var(--space-sm);
+    }
+    .section-intro--dark,
+    .section-intro--accent {
+      padding-block: var(--space-md);
     }
   }
 </style>

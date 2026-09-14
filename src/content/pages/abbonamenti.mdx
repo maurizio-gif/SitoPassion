@@ -19,6 +19,7 @@ draft: false
 ---
 
 import HighlightCards from '../../components/ui/HighlightCards.astro';
+import StatsBand from '../../components/ui/StatsBand.astro';
 import PricingGroup from '../../components/ui/PricingGroup.astro';
 import Collapsible from '../../components/ui/Collapsible.astro';
 import SectionIntro from '../../components/ui/SectionIntro.astro';
@@ -58,10 +59,19 @@ import CtaSplit from '../../components/ui/CtaSplit.astro';
   ]}
 />
 
+<StatsBand
+  stats={[
+    { num: '30+', label: 'Anni nel settore' },
+    { num: '2000', label: 'm² dedicati al fitness' },
+    { num: '1000', label: 'mq di sala pesi' },
+    { num: '2+2', label: 'Sale fitness e studi reformer' },
+  ]}
+/>
+
 <SectionIntro
   title="Abbonamenti e lezioni"
   text="Scegli se iscriverti con abbonamenti <strong>annuali</strong> o <strong>mensili</strong>, oppure prenota e paga la <strong>singola lezione o il singolo accesso</strong>. Per tutti i nostri abbonamenti è prevista la possibilità di <strong>sospensione</strong>."
-  variant="dark"
+  variant="accent"
 />
 
 <PricingGroup

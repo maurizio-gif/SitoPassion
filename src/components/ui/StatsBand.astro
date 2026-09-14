@@ -1,0 +1,142 @@
+---
+// Fascia logo + numeri a griglia 2x2: su desktop il logo sta a sinistra,
+// largo un terzo del viewport (cade sotto il primo box della fascia di
+// HighlightCards sopra, anch'essa a tre colonne uguali); su mobile il logo
+// sale sopra alla griglia, che resta 2x2. Nata sulla home, riusabile ovunque
+// serva la stessa fascia (es. Abbonamenti, subito sotto gli HighlightCards).
+//
+//   <StatsBand
+//     stats={[
+//       { num: '30+', label: 'Anni nel settore' },
+//       { num: '2000', label: 'm² dedicati al fitness' },
+//       { num: '1000', label: 'mq di sala pesi' },
+//       { num: '2+2', label: 'Sale fitness e studi reformer' },
+//     ]}
+//   />
+import Section from './Section.astro';
+
+interface Stat {
+  num: string;
+  label: string;
+}
+
+interface Props {
+  stats: Stat[];
+  logo?: string;
+  logoAlt?: string;
+}
+
+const {
+  stats,
+  logo = '/images/logo-passionfitness.png',
+  logoAlt = 'Passion Fitness Club',
+} = Astro.props;
+---
+
+<Section tone="dark">
+  <div class="stats-band">
+    <div class="stats-logo-slot">
+      <img class="stats-logo" src={logo} alt={logoAlt} width="402" height="174" />
+    </div>
+    <div class="stats-remainder">
+      <div class="stats">
+        {stats.map((s) => (
+          <div class="stat">
+            <span class="stat__num">{s.num}</span>
+            <span class="stat__label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  /* A piena larghezza ed esce dal .container di Section: cosi' la colonna
+     del logo puo' misurare esattamente un terzo del viewport, invece di
+     restare ancorata al padding del container. */
+  .stats-band {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+  }
+  .stats-logo-slot {
+    flex: 0 0 33.3333vw;
+    display: flex;
+    justify-content: center;
+  }
+  .stats-logo {
+    height: 12rem;
+    width: auto;
+  }
+  /* Occupa tutto lo spazio che resta dopo il logo, ma non deve stirare la
+     griglia dei numeri fino in fondo: su un monitor largo lascerebbe un
+     vuoto enorme fra le due colonne. Qui la centra invece come blocco solo,
+     lasciandole la sua larghezza naturale (contenuto). */
+  .stats-remainder {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding-right: var(--container-gutter);
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md) var(--space-xl);
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+  }
+  .stat__num {
+    font-family: var(--font-display);
+    /* Rosso del logo (#ff004d), non il rosso standard del sito: qui il logo
+       e' affiancato ai numeri e i due rossi devono coincidere esattamente. */
+    color: #ff004d;
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat__label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  /* + totem: vedi «Il totem verticale del club» in styles/global.css */
+  @media (max-width: 860px),
+    (min-width: 900px) and (min-height: 1200px) and (max-aspect-ratio: 7/10) {
+    .stats-band {
+      width: auto;
+      margin-inline: 0;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    .stats-logo-slot {
+      flex: none;
+      width: 100%;
+    }
+    .stats-logo {
+      height: 4.5rem;
+    }
+    .stats-remainder {
+      width: 100%;
+      padding-right: 0;
+    }
+    .stats {
+      gap: var(--space-md);
+    }
+    .stat {
+      align-items: center;
+      text-align: center;
+    }
+    .stat__num {
+      font-size: 3.2rem;
+    }
+  }
+</style>
