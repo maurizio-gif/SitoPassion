@@ -9,9 +9,11 @@ import { pageDescription, seoTitle } from '../lib/summary.ts';
 
 interface Props {
   page: CollectionEntry<'pages'>;
+  /** Vedi `BaseLayout`: niente header/footer per le landing page a canale unico. */
+  hideChrome?: boolean;
 }
 
-const { page } = Astro.props;
+const { page, hideChrome } = Astro.props;
 const { title, heroImage, heroVideo, heroEyebrow, heroText, heroCtas, seo } = page.data;
 
 // Nessuna pagina compila `seo.description`: in mancanza si usa il testo
@@ -38,6 +40,7 @@ breadcrumbs.push({ name: title, url: `/${page.data.slug}/` });
   ogImage={seo?.ogImage}
   noindex={seo?.noindex}
   breadcrumbs={breadcrumbs}
+  hideChrome={hideChrome}
 >
   <Hero title={title} image={heroImage} video={heroVideo} eyebrow={heroEyebrow}>
     {heroText && <p set:html={heroText} />}
