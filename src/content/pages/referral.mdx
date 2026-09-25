@@ -1,0 +1,61 @@
+---
+title: Presenta un Amico
+slug: referral
+heroEyebrow: Programma Presenta un Amico
+heroText: Regala un Pass di 10 giorni a 20€ (codice FREE10) e, se il tuo amico si iscrive, ricevi un voucher da 50€.
+seo:
+  title: Presenta un Amico da Passion Fitness Tuscolana
+  description: "Invita un amico ad allenarsi con te in Passion Fitness a Roma Tuscolana: Pass di 10 giorni a 20€ (Sala Pesi, Corsi Fitness, 1 lezione Reformer) e un voucher da 50€ se si iscrive."
+draft: false
+---
+
+import HighlightCards from '../../components/ui/HighlightCards.astro';
+import ContentRows from '../../components/ui/ContentRows.astro';
+import ContentRow from '../../components/ui/ContentRow.astro';
+import RelatedSection from '../../components/ui/RelatedSection.astro';
+import RelatedCard from '../../components/ui/RelatedCard.astro';
+import ReferralForm from '../../components/ReferralForm.astro';
+
+<HighlightCards
+  items={[
+    {
+      title: 'Sala Pesi',
+      body: 'Oltre 95 postazioni con macchinari Technogym e Panatta, senza limiti di orario.',
+      image: '/images/uploads/2025/01/PassionFitness-areacyclette.jpg',
+    },
+    {
+      title: 'Corsi Fitness',
+      body: 'Corsi Energy e Rebalance con una prenotazione alla volta.',
+      image: '/images/uploads/elementor/thumbs/Palestra-1-qwlqjv20qgbg415ygrfsih0rbtfqsnxmzwma3hjafc.jpeg',
+    },
+    {
+      title: '1 Lezione di Reformer',
+      body: 'Una lezione in Small Group nel nostro Studio Reformer.',
+      image: '/images/uploads/2024/11/JAK04781-scaled-qwlqr1jmxw5assqhjd6725sios1olfftng0t2kw0w8.jpeg',
+    },
+  ]}
+/>
+
+<ContentRows>
+  <ContentRow title="1. Invita il tuo amico" image="/images/uploads/2024/11/Sala-Pesi-2.jpeg" alt="Due persone si allenano insieme in sala pesi">
+    Compila il form qui sotto con i dati di chi vuoi invitare — fino a **3 amici** in un solo invio.
+
+    Il Pass costa **20€** (codice **FREE10**), è utilizzabile una sola volta ed è riservato a chi non ha mai avuto un abbonamento o un pass da noi dal 2020 in poi. Non valido per abbonamenti Fitprime e Wellhub.
+  </ContentRow>
+  <ContentRow title="2. Il tuo amico si allena per 10 giorni" image="/images/uploads/elementor/thumbs/Palestra-1-qwlqjv20qgbg415ygrfsih0rbtfqsnxmzwma3hjafc.jpeg" alt="Area corsi fitness di Passion Fitness Tuscolana">
+    Riceverà via email e WhatsApp le istruzioni per attivare il Pass e allenarsi da subito in
+    **Passion Fitness Tuscolana**: Sala Pesi, Corsi Fitness (una prenotazione alla volta) e 1 Lezione di Reformer.
+  </ContentRow>
+  <ContentRow title="3. Tu ricevi un voucher da 50€" image="/images/nuove/manubri3.jpg" alt="Sala pesi di Passion Fitness">
+    Se il tuo amico si iscrive **entro la scadenza del Pass**, il voucher da 50€ è tuo: passa in
+    segreteria per utilizzarlo sul tuo abbonamento.
+  </ContentRow>
+</ContentRows>
+
+<ReferralForm />
+
+<RelatedSection title="Potrebbe interessarti anche">
+  <RelatedCard title="Abbonamenti" href="/abbonamenti/" image="/images/uploads/2024/11/Sala-Pesi-10.jpg" alt="Sala pesi di Passion Fitness" />
+  <RelatedCard title="Orari Corsi" href="/orari-corsi/" image="/images/uploads/elementor/thumbs/Palestra-1-qwlqjv20qgbg415ygrfsih0rbtfqsnxmzwma3hjafc.jpeg" alt="Corsi fitness di Passion Fitness" />
+  <RelatedCard title="Sala Pesi" href="/palestra/sala-pesi/" image="/images/uploads/2025/01/PassionFitness-areacyclette.jpg" alt="Sala pesi di Passion Fitness" />
+</RelatedSection>

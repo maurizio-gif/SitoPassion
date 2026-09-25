@@ -4,24 +4,7 @@
   "redirects": [
     {
       "source": "/porta-un-amico/",
-      "has": [
-        {
-          "type": "query",
-          "key": "utm_source",
-          "value": "referral"
-        },
-        {
-          "type": "query",
-          "key": "utm_medium",
-          "value": "manifesto_qr"
-        },
-        {
-          "type": "query",
-          "key": "utm_campaign",
-          "value": "porta_un_amico"
-        }
-      ],
-      "destination": "https://automazione.n8ndevelop.it/form/eac6fd61-9d61-4fcb-b7f5-4f42ab56ba86",
+      "destination": "/referral/",
       "permanent": true
     },
     {
