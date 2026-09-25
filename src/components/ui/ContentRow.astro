@@ -226,8 +226,12 @@ const poster = video
       grid-template-columns: 1fr;
       /* Su mobile le righe sono impilate, non affiancate: l'altezza fissa
          del desktop (serve solo a far coincidere gli angoli in orizzontale)
-         non serve piu', l'immagine torna a un rapporto proprio. */
+         non serve piu', l'immagine torna a un rapporto proprio. `height`
+         da solo non basta: `min-height` e' una proprieta' diversa e restava
+         attiva, forzando 30rem sull'intero blocco impilato anche quando il
+         titolo + il media (in aspect-ratio) + il testo bastavano da soli. */
       height: auto;
+      min-height: 0;
     }
     /* Ordine mobile: titolo, media, testo. Il titolo si stacca dal box del
        paragrafo (display:contents su .content-row__copy: i suoi due figli
