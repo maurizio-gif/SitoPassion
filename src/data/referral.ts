@@ -10,6 +10,8 @@
  * chiave nel browser, nessuna route server, il sito resta statico.
  */
 
+import { ORARI_PASS } from './prova';
+
 export const GUEST_PASS = {
   giorni: 10,
   /* Non e' un pass gratuito: si paga per intero, 20€. L'unica leva
@@ -18,6 +20,7 @@ export const GUEST_PASS = {
   codice: 'FREE10',
   voucher: 50,
   incluso: ['Sala Pesi', 'Corsi Fitness (una prenotazione alla volta)', '1 Lezione di Reformer'],
+  orari: ORARI_PASS,
   /* Stessa frase che usa Spoki nel messaggio WhatsApp: le due condizioni
      restano identiche sui due canali apposta. */
   condizioni:
