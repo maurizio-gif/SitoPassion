@@ -28,6 +28,7 @@ export const PROVA = {
     'Sala pesi senza limiti di orario',
     'Corsi fitness Energy e Rebalance senza limiti',
     '1 lezione di Pilates Reformer in Small Group',
+    '1 lezione di Formula 8',
   ],
 } as const;
 
