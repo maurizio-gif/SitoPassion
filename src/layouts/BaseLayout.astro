@@ -13,9 +13,15 @@ interface Props {
   noindex?: boolean;
   breadcrumbs?: Breadcrumb[];
   ogTitle?: string;
+  /* Per le landing page a canale unico (es. /referral, aperta da un
+     link WhatsApp o da un QR code): niente header né footer, cosi'
+     chi arriva non trova una via d'uscita verso il resto del sito. Il
+     resto della pagina (Hero, tracking, ProvaModal/AccountModal) resta
+     invariato — sono "chrome" di navigazione, non contenuto. */
+  hideChrome?: boolean;
 }
 
-const { title, description, ogImage, noindex, breadcrumbs, ogTitle } = Astro.props;
+const { title, description, ogImage, noindex, breadcrumbs, ogTitle, hideChrome } = Astro.props;
 ---
 
 <html lang="it">
@@ -149,11 +155,11 @@ const { title, description, ogImage, noindex, breadcrumbs, ogTitle } = Astro.pro
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <Header />
+    {!hideChrome && <Header />}
     <main>
       <slot />
     </main>
-    <Footer />
+    {!hideChrome && <Footer />}
 
     {/* Il form della prova: presente su ogni pagina perche' le CTA che lo
         aprono sono su ogni pagina — header compreso. Sta in fondo al body e

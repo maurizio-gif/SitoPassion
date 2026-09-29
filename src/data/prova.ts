@@ -17,19 +17,28 @@ export const REGISTRAZIONE = 'https://passion.perfectgym.com/clientportal2/#/Reg
 /** Il codice promozionale della prova. Lo conosce anche n8n, che lo rimanda per email e WhatsApp. */
 export const CODICE = 'PROVA7';
 
+/**
+ * Gli orari in cui si entra con la Prova Passion e con il Guest Pass: non sono
+ * quelli dell'abbonamento (5:00-24:00), sono piu' stretti, e vanno detti
+ * prima dell'attivazione. Una sola fonte per i due pass.
+ */
+export const ORARI_PASS = 'Lun–ven 6:20–20:30 · sab e dom 8:30–17:30';
+
 export const PROVA = {
   codice: CODICE,
   prezzo: 20,
   giorni: 7,
-  /* Cosa comprende, nell'ordine in cui conviene leggerlo: prima le due cose
-     senza limiti, poi quella contingentata — una lezione, non tutte, e dirlo
-     qui evita la delusione al desk. */
+  /* Cosa comprende, nell'ordine in cui conviene leggerlo: prima sala e corsi,
+     poi quella contingentata — una lezione, non tutte, e dirlo qui evita la
+     delusione al desk. Niente "senza limiti di orario": il pass ha i suoi
+     orari (ORARI_PASS). */
   incluso: [
-    'Sala pesi senza limiti di orario',
-    'Corsi fitness Energy e Rebalance senza limiti',
+    'Sala pesi',
+    'Corsi fitness Energy e Rebalance',
     '1 lezione di Pilates Reformer in Small Group',
     '1 lezione di Formula 8',
   ],
+  orari: ORARI_PASS,
 } as const;
 
 /** I passi dell'attivazione sul portale: gli stessi dell'email e del WhatsApp. */
