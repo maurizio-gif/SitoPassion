@@ -1,0 +1,345 @@
+---
+/**
+ * Il modulo «Inviaci il tuo CV», incorporato nella pagina /lavora-con-noi.
+ *
+ * Sostituisce il Typeform a cui portava il link nel footer. Un modulo solo,
+ * tutti i campi obbligatori: nome, cognome, email, cellulare, data di nascita,
+ * la posizione per cui ci si candida e il curriculum (JPEG, DNG, PDF o Word,
+ * fino a 10 MB). Le risposte e il file arrivano nella sezione «Curriculum» del
+ * CRM: la logica e' in `lib/curriculumForm.client.js`, le posizioni e
+ * l'endpoint in `data/curriculum.ts`.
+ *
+ * Il sito resta statico: nessuna chiave nel browser, nessuna route server.
+ */
+import { POSIZIONI, MAX_MB, ACCEPT } from '../data/curriculum';
+import CampoTelefono from './CampoTelefono.astro';
+---
+
+<div class="cv" id="curriculum-form">
+  <form class="cv__step" data-cv-form novalidate>
+    <span class="cv__eyebrow">Lavora con noi</span>
+    <h3 class="cv__title">Inviaci il tuo CV.</h3>
+    <p class="cv__lead">
+      Rispondi a queste domande e allega il curriculum. Sono tutte obbligatorie: ti contatteremo se il tuo
+      profilo è in linea con una delle posizioni aperte.
+    </p>
+
+    <div class="cv__campi">
+      <div class="cv__campo">
+        <label class="cv__label" for="cv-nome">Nome</label>
+        <input class="cv__input" id="cv-nome" name="nome" type="text" autocomplete="given-name" maxlength="80" required placeholder="Mario" />
+      </div>
+      <div class="cv__campo">
+        <label class="cv__label" for="cv-cognome">Cognome</label>
+        <input class="cv__input" id="cv-cognome" name="cognome" type="text" autocomplete="family-name" maxlength="80" required placeholder="Rossi" />
+      </div>
+      <div class="cv__campo">
+        <label class="cv__label" for="cv-email">Email</label>
+        <input class="cv__input" id="cv-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required placeholder="mario.rossi@email.it" />
+      </div>
+      <div class="cv__campo">
+        <label class="cv__label" for="cv-cellulare">Cellulare</label>
+        <CampoTelefono id="cv-cellulare" classe="cv__input" required />
+      </div>
+      <div class="cv__campo">
+        <label class="cv__label" for="cv-nascita">Data di nascita</label>
+        <input class="cv__input" id="cv-nascita" name="data_nascita" type="date" autocomplete="bday" required />
+      </div>
+      <div class="cv__campo">
+        <label class="cv__label" for="cv-posizione">Posizione per cui ti candidi</label>
+        <select class="cv__input" id="cv-posizione" name="posizione" required>
+          <option value="" selected disabled>Scegli una posizione</option>
+          {POSIZIONI.map((p) => <option value={p.valore}>{p.etichetta}</option>)}
+        </select>
+      </div>
+      <div class="cv__campo cv__pieno">
+        <label class="cv__label" for="cv-file">Curriculum</label>
+        <input class="cv__file" id="cv-file" name="file" type="file" accept={ACCEPT} required />
+        <p class="cv__nota">
+          <span data-cv-nomefile>Nessun file selezionato</span><br />
+          Formati: JPEG, DNG, PDF o Word. Massimo {MAX_MB} MB.
+        </p>
+      </div>
+    </div>
+
+    {/* Trappola per i robot: una persona non lo vede ne' lo raggiunge con Tab. */}
+    <div class="cv__trappola" aria-hidden="true">
+      <label for="cv-sito-web">Non compilare questo campo</label>
+      <input id="cv-sito-web" name="sito_web" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <label class="cv__consenso" for="cv-privacy">
+      <input type="checkbox" id="cv-privacy" name="privacy" required />
+      <span>
+        Ho letto l'<a href="/informativa-privacy/" target="_blank" rel="noopener noreferrer">informativa privacy</a>{' '}
+        e so che Tuscolana SSD Arl userà i miei dati e il mio curriculum per valutare la mia candidatura.
+      </span>
+    </label>
+
+    <p class="cv__errore" data-cv-errore role="alert" hidden></p>
+
+    <button type="submit" class="cv__btn" data-cv-invia>
+      <span class="cv__btn-testo">Invia la candidatura</span>
+      <span class="cv__spinner" aria-hidden="true"></span>
+    </button>
+  </form>
+
+  <section class="cv__step" data-cv-esito hidden>
+    <span class="cv__eyebrow">Fatto</span>
+    <h3 class="cv__title" tabindex="-1" data-cv-fuoco>Candidatura inviata.</h3>
+    <p class="cv__lead">
+      Grazie! Abbiamo ricevuto il tuo curriculum. Se il tuo profilo è in linea con la posizione, ti contatteremo
+      ai recapiti che ci hai lasciato.
+    </p>
+    <a class="cv__btn cv__btn--link" href="/">Torna alla home →</a>
+  </section>
+</div>
+
+<script>
+  import { initCurriculumForm } from '../lib/curriculumForm.client.js';
+
+  const root = document.getElementById('curriculum-form');
+  if (root) initCurriculumForm(root);
+</script>
+
+<style>
+  .cv {
+    max-width: 58rem;
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-sm);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cv__step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  .cv__step[hidden] {
+    display: none;
+  }
+
+  .cv__eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .cv__title {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-weight: 400;
+    line-height: 0.96;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    margin: 0;
+  }
+  .cv__title:focus {
+    outline: none;
+  }
+
+  .cv__lead {
+    font-size: 0.95rem;
+    color: var(--text-on-light-muted);
+  }
+
+  .cv__label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: var(--space-2xs);
+  }
+
+  /* `:global` perche' la classe arriva anche dentro `CampoTelefono` (vedi il
+     commento in cima a quel componente): le regole con ambito non la vedono. */
+  :global(.cv__input) {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+    color: var(--text-on-light);
+    background: var(--bg-light-soft);
+    border: 2px solid var(--border-on-light);
+    border-radius: 10px;
+  }
+  :global(.cv__input:focus) {
+    outline: none;
+    border-color: var(--accent);
+  }
+  :global(.cv__input--errore) {
+    border-color: var(--accent);
+    background: var(--color-white);
+  }
+
+  .cv__file {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 0.7rem 1rem;
+    color: var(--text-on-light);
+    background: var(--bg-light-soft);
+    border: 2px dashed var(--border-on-light);
+    border-radius: 10px;
+  }
+  .cv__file::file-selector-button {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-right: 0.9rem;
+    padding: 0.55rem 1rem;
+    color: var(--color-white);
+    background: var(--accent);
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .cv__file.cv__input--errore {
+    border-color: var(--accent);
+  }
+
+  .cv__coppia {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xs);
+  }
+  @media (max-width: 480px) {
+    .cv__coppia {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .cv__campi {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  /* Su desktop il form non e' una colonna stretta: i campi brevi stanno in due
+     colonne, il resto (curriculum, consenso, invio) a tutta larghezza. */
+  @media (min-width: 800px) {
+    .cv__campi {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: var(--space-sm);
+      row-gap: var(--space-xs);
+      align-items: start;
+    }
+    .cv__campi > .cv__pieno {
+      grid-column: 1 / -1;
+    }
+  }
+  .cv__campo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  .cv__trappola {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .cv__consenso {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--text-on-light-muted);
+    margin-top: var(--space-xs);
+  }
+  .cv__consenso input {
+    margin-top: 0.2rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+  }
+  .cv__consenso a {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  .cv__errore {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .cv__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    width: 100%;
+    margin-top: var(--space-2xs);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 1rem 1.6rem;
+    cursor: pointer;
+    color: var(--color-white);
+    background: var(--accent);
+    border: 4px solid var(--accent);
+    border-radius: 12px;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .cv__btn:hover {
+    background: var(--color-black);
+    border-color: var(--color-black);
+  }
+  .cv__btn[disabled] {
+    cursor: progress;
+    opacity: 0.75;
+  }
+  .cv__btn--link {
+    background: transparent;
+    color: var(--accent);
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+  .cv__btn--link:hover {
+    background: var(--accent);
+    color: var(--color-white);
+    border-color: var(--accent);
+  }
+
+  .cv__spinner {
+    display: none;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: var(--color-white);
+    border-radius: 50%;
+    animation: cv-gira 0.7s linear infinite;
+  }
+  .cv__btn--attesa .cv__spinner {
+    display: inline-block;
+  }
+  @keyframes cv-gira {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cv__spinner {
+      animation-duration: 2s;
+    }
+  }
+
+  .cv__nota {
+    font-size: 0.78rem;
+    color: var(--text-on-light-muted);
+  }
+</style>
